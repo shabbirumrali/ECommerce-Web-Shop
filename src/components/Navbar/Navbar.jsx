@@ -7,24 +7,29 @@ import logo from '../../assets/commerce.png'
 
 // styles
 import useStyles from './styles'
+import { Link } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({ totalItems }) => {
     const classes = useStyles()
   return (
     <>
         <AppBar position="fixed" className={classes.appBar} color="inherit">
             <Toolbar>
                 <Typography variant="h6" className={classes.title} color="inherit" >
-                    <img src={logo} alt="commerce js" height="25px" className={classes.image} />
-                    Web Shop
+                    <Link to="/">
+                        <img src={logo} alt="commerce js" height="25px" className={classes.image} />
+                        Web Shop
+                    </Link>
                 </Typography>
                 <div className={classes.grow}>
                     <div className={classes.button}>
+                        <Link to="/cart">
                         <IconButton aria-label="Show Cart Items" color="inherit">
-                            <Badge badgeContent={2} color="secondary">
+                            <Badge badgeContent={totalItems} color="secondary">
                                 <ShoppingCart />
                             </Badge>
                         </IconButton>
+                        </Link>
                     </div>
                 </div>
             </Toolbar>
