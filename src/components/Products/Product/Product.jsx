@@ -9,17 +9,17 @@ const Product = ({ product }) => {
     
   return (
     <Card className={classes.root}>
-        <CardMedia className={classes.media} image={product.image} title={product.name}  />
+        <CardMedia className={classes.media} image={product.image.url} title={product.name}  />
         <CardContent>
             <div className={classes.cardContent}>
-                <Typography varient="h5" gutterBottom >
+                <Typography varient="h3" gutterBottom component="h3" >
                     {product.name}
                 </Typography>
-                <Typography varient="h5" >
-                    {product.price}
+                <Typography varient="h3" gutterBottom component="h3" >
+                    {product.price.formatted_with_symbol}
                 </Typography>
-                <Typography varient="body2" color="textSecondary">{product.description}</Typography>
             </div>
+            <Typography dangerouslySetInnerHTML={{ __html: product.description }} varient="body2" color="textSecondary" component="p" />
         </CardContent>
 
         <CardActions disableSpacing className={classes.cardActions} >
