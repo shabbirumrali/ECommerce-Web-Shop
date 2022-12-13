@@ -28,6 +28,7 @@ export default makeStyles((theme) => ({
   },
   grow: {
     flexGrow: 1,
+    textAlign: 'right'
   },
   search: {
     position: 'relative',
