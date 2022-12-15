@@ -7,6 +7,8 @@ import { Products, Navbar, Cart, Checkout } from './components'
 const App = () => {
   const [products, setProducts] = useState([])
   const [cart, setCart] = useState({})
+  const [order, setOrder] = useState({})
+  const [errorMessage, setErrorMessage] = useState('')
 
   
   const fetchCart = async () => {
@@ -43,6 +45,22 @@ const App = () => {
 
     setCart(cart)
   }
+  const refereshCart = async () => {
+    const newCart = await commerce.cart.refresh()
+
+    setCart(newCart)
+  }
+  const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
+    try {
+      const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder)
+      
+      setOrder(incomingOrder)
+      refereshCart()
+    } catch (error) {
+      setErrorMessage(error.data.error.message)
+      console.log(error.data.error.message)
+    }
+  }
 
 
   useEffect(() => {
@@ -70,7 +88,12 @@ const App = () => {
             />
           </Route>
           <Route exact path='/checkout'>
-            <Checkout cart={cart} />
+            <Checkout 
+              cart={cart} 
+              onCaptureCheckout={handleCaptureCheckout} 
+              order={order}
+              error={errorMessage}
+            />
           </Route>
         </Switch>
       </BrowserRouter>
